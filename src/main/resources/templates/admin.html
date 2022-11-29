@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin page</title>
+</head>
+<body>
+
+<h2>Personal page for: </h2>
+<h3>
+<!--    <div th:utext="${user.getRoles()}">.</div>-->
+    <div th:utext="${user.getFirstname()}">.</div>
+    <div th:utext="${user.getLastname()}">.</div></h3>
+
+<br><br>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+</body>
+</html>
