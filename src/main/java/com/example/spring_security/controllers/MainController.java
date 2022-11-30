@@ -1,6 +1,8 @@
 package com.example.spring_security.controllers;
 
+import com.example.spring_security.entities.Role;
 import com.example.spring_security.entities.User;
+import com.example.spring_security.repositories.RoleRepository;
 import com.example.spring_security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class MainController {
+    private RoleRepository roleRepository;
     private UserService userService;
     @Autowired
     public MainController(UserService userService) {
@@ -27,6 +31,15 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/user")
+    public String pageForUser(Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+//        List<Role> roles = roleRepository.findAll();
+//        model.addAttribute("roles", roles);
+
+        return "user";
+    }
 
 
 
