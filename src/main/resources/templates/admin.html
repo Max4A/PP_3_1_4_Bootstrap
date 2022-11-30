@@ -7,12 +7,51 @@
 </head>
 <body>
 
-<h2>Personal page for: </h2>
+<h3>Admin page for: </h3>
 <h3>
-<!--    <div th:utext="${user.getRoles()}">.</div>-->
-    <div th:utext="${user.getFirstname()}">.</div>
-    <div th:utext="${user.getLastname()}">.</div></h3>
+    <div th:utext="${user.firstname}">.</div>
+    <div th:utext="${user.lastname}">.</div>
+</h3>
 
+<div>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each ="person : ${allUsers}">
+            <td th:utext="${person.id}">...</td>
+            <td th:utext="${person.username}">...</td>
+            <td th:utext="${person.firstname}">...</td>
+            <td th:utext="${person.lastname}">...</td>
+            <td th:utext="${person.email}">...</td>
+            <td th:utext="${person.listOfRoles()}">...</td>
+            <td>
+                <form  th:action="@{/users/{id}/edit (id=${person.getId()})}"><!--th:method="PATCH"-->
+                    <input type="submit" value="Edit"/>
+                </form>
+            </td>
+            <td>
+                <form th:method="DELETE" th:action="@{/users/{id}(id=${person.getId()})}">
+                    <input type="submit" value="Delete"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<br><br>
+<div>
+    <input type="button" value="User page"
+           onclick="window.location.href='/user'">
+</div>
 <br><br>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>

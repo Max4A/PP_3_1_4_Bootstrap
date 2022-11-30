@@ -3,6 +3,7 @@ package com.example.spring_security.controllers;
 import com.example.spring_security.entities.Role;
 import com.example.spring_security.entities.User;
 import com.example.spring_security.repositories.RoleRepository;
+import com.example.spring_security.repositories.UserRepository;
 import com.example.spring_security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class MainController {
-    private RoleRepository roleRepository;
+//    private RoleRepository roleRepository;
+//    private UserRepository userRepository;
+
     private UserService userService;
     @Autowired
     public MainController(UserService userService) {
@@ -35,19 +38,18 @@ public class MainController {
     public String pageForUser(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("user", user);
-//        List<Role> roles = roleRepository.findAll();
-//        model.addAttribute("roles", roles);
-
         return "user";
     }
 
+    @GetMapping("/admin")
+    public String pageForAdmin(Principal principal, Model model) {
+        List<User> allUsers = userService.findAll();
+        model.addAttribute("allUsers", allUsers);
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+        return "admin";
+    }
 
-
-
-//    @GetMapping("/{id}/edit")
-//    public String edit(Model model, @PathVariable("id") Long id) {
-//        model.addAttribute("user", service.getUserById(id));
-//        return "editUser";
 
 
 }
