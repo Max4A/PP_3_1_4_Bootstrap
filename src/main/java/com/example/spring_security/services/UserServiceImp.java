@@ -40,4 +40,10 @@ public class UserServiceImp implements UserService {
         return userRepository.findAll();
     }
 
+    @Override
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
+
 }

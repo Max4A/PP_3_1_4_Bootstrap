@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add User</title>
+</head>
+<body>
+<h1>Add User</h1>
+<!--
+<form th:method="POST" th:action="@{/admin}" th:object="${user}" >
+    -->
+
+<form th:method="POST" th:action="@{/admin/save}" th:object="${user}">
+    <p th:text="'User id: ' + ${user.getId()}">ID</p>
+    <label for="username">Enter Username: </label>
+    <input type="text" th:field="*{username}" id="username" placeholder="Username"/>
+    <br/>
+    <label for="password">Enter Password: </label>
+    <input type="password" th:field="*{password}" id="password" placeholder="Password"/>
+    <br/>
+    <label for="firstname">Enter Firstname: </label>
+    <input type="text" th:field="*{firstname}" id="firstname" placeholder="Firstname"/>
+    <br/>
+    <label for="lastname">Enter Lastname: </label>
+    <input type="text" th:field="*{lastname}" id="lastname" placeholder="Lastname"/>
+    <br/>
+    <label for="email">Enter E-mail: </label>
+    <input type="text" th:field="*{email}" id="email" placeholder="E-mail"/>
+    <br/>
+
+    <p>
+        <label>Roles:
+            <input type="checkbox" name="roleList"
+                   th:each="role : ${roleList}"
+                   th:text="${role.getNoPrefix()}"
+                   th:value="${role.id}"
+                   th:field="*{roles}"
+            />
+        </label>
+    </p>
+
+    <!--
+    <p><label>
+        <select th:size="${roles.size()}" multiple name="select-role"
+                   th:each="role : ${roles}">
+
+            <option th:value="${role.getName()}" th:utext="${role.getName()}"></option>
+        </select>
+    </label></p>
+-->
+    <input type="submit" value="Create" />
+</form>
+
+</body>
+</html>

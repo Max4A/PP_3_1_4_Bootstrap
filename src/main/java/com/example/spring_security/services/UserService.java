@@ -11,4 +11,13 @@ public interface UserService extends UserDetailsService {
     public UserDetails loadUserByUsername(String username);
 
     public List<User> findAll();
+
+
+//    public User getUserById(Long id);
+
+    public void saveUser(User user);
+
+//    public void updateUser(Long id, User updatedUser);
+//
+//    public void deleteUser(Long id);
 }

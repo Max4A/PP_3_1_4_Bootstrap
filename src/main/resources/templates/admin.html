@@ -14,6 +14,11 @@
 </h3>
 
 <div>
+    <input type="button" value="Personal page"
+           onclick="window.location.href='/user'">
+</div>
+<br>
+<div>
     <table border="1">
         <tr>
             <th>ID</th>
@@ -33,12 +38,12 @@
             <td th:utext="${person.email}">...</td>
             <td th:utext="${person.listOfRoles()}">...</td>
             <td>
-                <form  th:action="@{/users/{id}/edit (id=${person.getId()})}"><!--th:method="PATCH"-->
+                <form  th:action="@{/admin/{id}/edit (id=${person.getId()})}"><!--th:method="PATCH"-->
                     <input type="submit" value="Edit"/>
                 </form>
             </td>
             <td>
-                <form th:method="DELETE" th:action="@{/users/{id}(id=${person.getId()})}">
+                <form th:method="DELETE" th:action="@{/admin/{id}(id=${person.getId()})}">
                     <input type="submit" value="Delete"/>
                 </form>
             </td>
@@ -46,12 +51,11 @@
     </table>
 </div>
 
-
 <br><br>
-<div>
-    <input type="button" value="User page"
-           onclick="window.location.href='/user'">
-</div>
+<form th:action="@{/admin/new}" >
+    <input type="submit" value="Add User"/>
+</form>
+
 <br><br>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
