@@ -5,6 +5,7 @@ import com.example.spring_security.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,11 +24,21 @@ public class RoleServiceImp implements RoleService {
 
     @Override
     public Role getRoleByName(String name) {
+        Long id;
+        for (Role role : roleRepository.findAll()) {
+            if (role.getName() == name) {
+                return role;
+            }
+        }
         return null;
     }
 
     @Override
     public List<Role> getRoleByNames(String[] names) {
-        return null;
+        List<Role> roleList = new ArrayList<>();
+        for (String name:names) {
+            roleList.add(getRoleByName(name));
+        }
+        return roleList;
     }
 }

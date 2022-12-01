@@ -27,14 +27,16 @@
     <label for="email">Enter E-mail: </label>
     <input type="text" th:field="*{email}" id="email" placeholder="E-mail"/>
     <br/>
+<!--
 
     <p><select th:size="${roles.size()}" multiple name="select-role"
                th:each="role : ${roles}">
 
         <option th:value="${role.getName()}" th:utext="${role.getName()}"/>
     </select></p>
+-->
 
-    <!--
+
     <p><label>
         <select th:size="${roles.size()}" multiple name="select-role"
                    th:each="role : ${roles}">
@@ -42,7 +44,7 @@
             <option th:value="${role.getName()}" th:utext="${role.getName()}"></option>
         </select>
     </label></p>
--->
+
     <input type="submit" value="Create" />
 </form>
 

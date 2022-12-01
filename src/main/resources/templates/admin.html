@@ -38,7 +38,7 @@
             <td th:utext="${person.email}">...</td>
             <td th:utext="${person.listOfRoles()}">...</td>
             <td>
-                <form  th:action="@{/admin/{id}/edit (id=${person.getId()})}"><!--th:method="PATCH"-->
+                <form  th:action="@{/admin/{username}/edit (username=${person.getUsername()})}"><!--th:method="PATCH"-->
                     <input type="submit" value="Edit"/>
                 </form>
             </td>

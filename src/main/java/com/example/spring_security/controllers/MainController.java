@@ -15,8 +15,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class MainController {
-//    private RoleRepository roleRepository;
-//    private UserRepository userRepository;
 
     private UserService userService;
     private RoleService roleService;
@@ -42,7 +40,7 @@ public class MainController {
         return "user";
     }
 
-    // ######## Страница админа #############
+    // ######## Страница админа - все юзеры #############
     @GetMapping("/admin")
     public String pageForAdmin(Principal principal, Model model) {  // все юзеры
         List<User> allUsers = userService.findAll();
@@ -51,7 +49,7 @@ public class MainController {
         model.addAttribute("user", user);
         return "admin";
     }
-//  new user ####################################
+//  ############### new user ####################################
 
     @GetMapping("/admin/new")
     public String newUser(Model model) {
@@ -63,7 +61,7 @@ public class MainController {
     @PostMapping("/admin/save")
     public String createUser(@ModelAttribute("user") User user,
                              @RequestParam(value = "select-role") String[] roleNames) {
-
+//        System.out.println(user); // зачем???
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(roleService.getRoleByNames(roleNames));
         userService.saveUser(user);
@@ -71,7 +69,7 @@ public class MainController {
         return "redirect:/admin";
     }
 
-// delete user ############################################################
+// ############### delete user ############################################################
 
     @DeleteMapping("/admin/{id}")
     public String delete(@ModelAttribute("user") User user,
@@ -80,53 +78,25 @@ public class MainController {
         return "redirect:/admin";
     }
 
-//    @GetMapping("/newAddUserAdmin")
-//    public String addNewUser(Model model) {
-//        User user = new User();
-//        model.addAttribute("user", user);
-//
-//        List<Role> roles = roleService.getList();
-//        model.addAttribute("roleList", roles);
-////        model.addAttribute("roleList", roles);
-//        return "user_new_admin";
-//    }
-//
-//    @PostMapping("/newAddUserAdmin")
-//    public String saveNewUser(
-//            @ModelAttribute("user") User user
-//    ) {
-////        List<String> lsr = user.getRoles().stream().map(r -> r.getName()).collect(Collectors.toList());
-////        List<Role> liRo = roleService.listByRole(lsr);
-////
-////        user.setRoles(liRo);
-//        //user.setRoles(roles);
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        userService.add(user);
-//        return "redirect:/admin";
-//    }
+// ############### edit user ############################################################
+    @GetMapping("/admin/{username}/edit")
+    public String edit(Model model, @PathVariable("username") String username) {
+        model.addAttribute("user", userService.findByUsername(username));
+        model.addAttribute("roles", roleService.allRoles());
+        return "editUser";
+    }
 
-    // ##################################################
-//
-//    @GetMapping("/{id}/edit")
-//    public String edit(Model model, @PathVariable("id") Long id) {
-//        model.addAttribute("user", service.getUserById(id));
-//        return "editUser";
-//    }
-//
-//    @PatchMapping("/{id}")
-//    public String update(@ModelAttribute("user") User user,
-//                         @PathVariable("id") Long id) {
-//        service.updateUser(id, user);
-//        return "redirect:/users/all";
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public String delete(@ModelAttribute("user") User user,
-//                         @PathVariable("id") Long id) {
-//        service.deleteUser(id);
-//        return "redirect:/users/all";
-//    }
+    @PatchMapping("/admin/{username}")
+    public String update(@ModelAttribute("user") User user,
+                         @PathVariable("username") String username,
+                         @RequestParam(value = "select-role") String[] roleNames) {
 
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(roleService.getRoleByNames(roleNames));
+
+        userService.updateUser(username, user);
+        return "redirect:/admin";
+    }
 
 
 }

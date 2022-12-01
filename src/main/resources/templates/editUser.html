@@ -6,22 +6,38 @@
 </head>
 <body>
 <h1>Edit User</h1>
-<form th:method="PATCH" th:action="@{/users/{id}(id=${user.getId()})}" th:object="${user}" >
+<form th:method="PATCH" th:action="@{/admin/{username}(username=${user.getUsername()})}" th:object="${user}" >
   <label for="username">Change UserName: </label>
   <input type="text" th:field="*{username}" id="username"/>
-  <br/>
+  <br>
   <label for="password">Change Password: </label>
   <input type="password" th:field="*{password}" id="password"/>
-  <br/>
+  <br>
   <label for="firstname">Change First name: </label>
   <input type="text" th:field="*{firstname}" id="firstname"/>
-  <br/>
+  <br>
   <label for="lastname">Change Last name: </label>
   <input type="text" th:field="*{lastname}" id="lastname"/>
-  <br/>
+  <br>
   <label for="email">Change E-mail: </label>
   <input type="text" th:field="*{email}" id="email"/>
-  <br/>
+  <br>
+  <!--
+  <p><select th:size="${roles.size()}" multiple name="select-role"
+             th:each="role : ${roles}">
+
+    <option th:value="${role.getName()}" th:utext="${role.getName()}"/>
+  </select></p>
+-->
+  <p><label>
+    <select th:size="${roles.size()}" multiple name="select-role"
+            th:each="role : ${roles}">
+
+      <option th:value="${role.getName()}" th:utext="${role.getName()}"></option>
+    </select>
+  </label></p>
+
+  <br>
   <input type="submit" value="Update" />
 </form>
 
