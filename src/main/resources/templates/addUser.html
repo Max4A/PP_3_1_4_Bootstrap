@@ -28,16 +28,11 @@
     <input type="text" th:field="*{email}" id="email" placeholder="E-mail"/>
     <br/>
 
-    <p>
-        <label>Roles:
-            <input type="checkbox" name="roleList"
-                   th:each="role : ${roleList}"
-                   th:text="${role.getNoPrefix()}"
-                   th:value="${role.id}"
-                   th:field="*{roles}"
-            />
-        </label>
-    </p>
+    <p><select th:size="${roles.size()}" multiple name="select-role"
+               th:each="role : ${roles}">
+
+        <option th:value="${role.getName()}" th:utext="${role.getName()}"/>
+    </select></p>
 
     <!--
     <p><label>

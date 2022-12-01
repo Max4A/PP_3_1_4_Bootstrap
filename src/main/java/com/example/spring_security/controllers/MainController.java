@@ -51,7 +51,7 @@ public class MainController {
         model.addAttribute("user", user);
         return "admin";
     }
-//  еще ####################################
+//  new user ####################################
 
     @GetMapping("/admin/new")
     public String newUser(Model model) {
@@ -61,17 +61,24 @@ public class MainController {
     }
 
     @PostMapping("/admin/save")
-    public String createUser(@ModelAttribute("user") User user/*,
-                             @RequestParam(value = "select-role") String[] roleNames*/) {
+    public String createUser(@ModelAttribute("user") User user,
+                             @RequestParam(value = "select-role") String[] roleNames) {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        user.setRoles(roleService.getRoleByNames(roleNames));
+        user.setRoles(roleService.getRoleByNames(roleNames));
         userService.saveUser(user);
 
         return "redirect:/admin";
     }
 
-// ############################################################
+// delete user ############################################################
+
+    @DeleteMapping("/admin/{id}")
+    public String delete(@ModelAttribute("user") User user,
+                         @PathVariable("id") Long id) {
+        userService.deleteUser(id);
+        return "redirect:/admin";
+    }
 
 //    @GetMapping("/newAddUserAdmin")
 //    public String addNewUser(Model model) {
