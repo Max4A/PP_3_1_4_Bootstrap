@@ -10,23 +10,41 @@
 <form th:method="POST" th:action="@{/admin}" th:object="${user}" >
     -->
 
-<form th:method="POST" th:action="@{/admin/save}" th:object="${user}">
-    <p th:text="'User id: ' + ${user.getId()}">ID</p>
-    <label for="username">Enter Username: </label>
-    <input type="text" th:field="*{username}" id="username" placeholder="Username"/>
-    <br/>
-    <label for="password">Enter Password: </label>
-    <input type="password" th:field="*{password}" id="password" placeholder="Password"/>
-    <br/>
-    <label for="firstname">Enter Firstname: </label>
-    <input type="text" th:field="*{firstname}" id="firstname" placeholder="Firstname"/>
-    <br/>
-    <label for="lastname">Enter Lastname: </label>
-    <input type="text" th:field="*{lastname}" id="lastname" placeholder="Lastname"/>
-    <br/>
-    <label for="email">Enter E-mail: </label>
-    <input type="text" th:field="*{email}" id="email" placeholder="E-mail"/>
-    <br/>
+<!--<form th:method="POST" th:action="@{/admin/save}" th:object="${user}">-->
+
+
+    <form th:action="@{/admin/save}" th:object="${user}" method="post">
+
+        <p th:text="'User id: ' + ${user.getId()}">ID</p>
+        <label for="username">Enter Username: </label>
+        <input type="text" th:field="*{username}" id="username" placeholder="Username"/>
+        <br/>
+        <label for="password">Enter Password: </label>
+        <input type="password" th:field="*{password}" id="password" placeholder="Password"/>
+        <br/>
+        <label for="firstname">Enter Firstname: </label>
+        <input type="text" th:field="*{firstname}" id="firstname" placeholder="Firstname"/>
+        <br/>
+        <label for="lastname">Enter Lastname: </label>
+        <input type="text" th:field="*{lastname}" id="lastname" placeholder="Lastname"/>
+        <br/>
+        <label for="email">Enter E-mail: </label>
+        <input type="text" th:field="*{email}" id="email" placeholder="E-mail"/>
+        <br/>
+
+        <p>
+            <label>Roles:
+                <input type="checkbox" name="roles"
+                       th:each="role : ${roles}"
+                       th:text="${role.name}"
+                       th:value="${role.id}"
+                       th:field="*{roles}"
+                />
+            </label>
+        </p>
+
+        <input type="submit" value="Create" />
+    </form>
 <!--
 
     <p><select th:size="${roles.size()}" multiple name="select-role"
@@ -36,6 +54,7 @@
     </select></p>
 -->
 
+<!--
 
     <p><label>
         <select th:size="${roles.size()}" multiple name="select-role"
@@ -44,9 +63,12 @@
             <option th:value="${role.getName()}" th:utext="${role.getName()}"></option>
         </select>
     </label></p>
+-->
+<!--
 
     <input type="submit" value="Create" />
 </form>
+-->
 
 </body>
 </html>

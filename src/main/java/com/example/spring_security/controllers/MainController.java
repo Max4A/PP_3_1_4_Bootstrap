@@ -57,13 +57,26 @@ public class MainController {
         model.addAttribute("roles", roleService.allRoles());
         return "addUser";
     }
+//    @GetMapping("/users/new")
+//    public ModelAndView newUser() {
+//        User user = new User();
+//        ModelAndView mav = new ModelAndView("user_form");
+//        mav.addObject("user", user);
+//
+//        List<Role> roles = (List<Role>) roleRepository.findAll();
+//
+//        mav.addObject("allRoles", roles);
+//
+//        return mav;
+//    }
 
     @PostMapping("/admin/save")
-    public String createUser(@ModelAttribute("user") User user,
-                             @RequestParam(value = "select-role") String[] roleNames) {
+    public String createUser(@ModelAttribute("user") User user
+//            , @RequestParam(value = "select-role") String[] roleNames
+    ) {
 //        System.out.println(user); // зачем???
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(roleService.getRoleByNames(roleNames));
+//        user.setRoles(roleService.getRoleByNames(roleNames));
         userService.saveUser(user);
 
         return "redirect:/admin";
