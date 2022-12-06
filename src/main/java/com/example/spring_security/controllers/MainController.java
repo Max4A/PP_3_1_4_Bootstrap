@@ -98,14 +98,27 @@ public class MainController {
         model.addAttribute("roles", roleService.allRoles());
         return "editUser";
     }
+//    @GetMapping("/users/edit/{id}")
+//    public ModelAndView editUser(@PathVariable(name = "id") Integer id) {
+//        User user = service.get(id);
+//        ModelAndView mav = new ModelAndView("user_form");
+//        mav.addObject("user", user);
+//
+//        List<Role> roles = (List<Role>) roleRepository.findAll();
+//
+//        mav.addObject("allRoles", roles);
+//
+//        return mav;
+//    }
 
     @PatchMapping("/admin/{username}")
     public String update(@ModelAttribute("user") User user,
-                         @PathVariable("username") String username,
-                         @RequestParam(value = "select-role") String[] roleNames) {
+                         @PathVariable("username") String username
+//            , @RequestParam(value = "select-role") String[] roleNames
+    ) {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(roleService.getRoleByNames(roleNames));
+//        user.setRoles(roleService.getRoleByNames(roleNames));
 
         userService.updateUser(username, user);
         return "redirect:/admin";
