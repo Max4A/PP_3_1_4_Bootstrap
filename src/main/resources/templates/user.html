@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,6 @@
 
 <h2>Personal page for: </h2>
 <h3>
-<!--    <div th:utext="${user.getRoles()}">.</div>-->
   <div th:utext="${user.firstname}">.</div>
   <div th:utext="${user.lastname}">.</div></h3>
 
@@ -31,10 +30,7 @@
             <td th:utext="${user.lastname}">...</td>
             <td th:utext="${user.email}">...</td>
             <td th:utext="${user.listOfRoles()}">...</td>
-<!--            <td th:block th:each="role : ${roles}" th:text="${role.name}">...</td>-->
- <!--           <th:block th:each="role : ${roles}">
-                <option th:text="${role.getName()}" th:value="${role.getId()}" th:selected="${user.getRoles().contains(role)}" th:disabled="${!#request.isUserInRole('ROLE_ADMIN')}"/>
-            </th:block>-->
+
         </tr>
     </table>
 

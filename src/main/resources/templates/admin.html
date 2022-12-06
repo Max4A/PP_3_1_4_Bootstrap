@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" >
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -38,7 +38,7 @@
             <td th:utext="${person.email}">...</td>
             <td th:utext="${person.listOfRoles()}">...</td>
             <td>
-                <form  th:action="@{/admin/{username}/edit (username=${person.getUsername()})}"><!--th:method="PATCH"-->
+                <form  th:action="@{/admin/{username}/edit (username=${person.getUsername()})}">
                     <input type="submit" value="Edit"/>
                 </form>
             </td>

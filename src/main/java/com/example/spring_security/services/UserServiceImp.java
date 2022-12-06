@@ -53,7 +53,6 @@ public class UserServiceImp implements UserService {
     @Override
     public void updateUser(String username, User newUserData) {
         User user = userRepository.findByUsername(username);
-//        user.setUsername(newUserData.getUsername());
         user.setPassword(newUserData.getPassword());
         user.setFirstname(newUserData.getFirstname());
         user.setLastname(newUserData.getLastname());

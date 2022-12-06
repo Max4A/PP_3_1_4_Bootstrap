@@ -6,12 +6,6 @@
 </head>
 <body>
 <h1>Add User</h1>
-<!--
-<form th:method="POST" th:action="@{/admin}" th:object="${user}" >
-    -->
-
-<!--<form th:method="POST" th:action="@{/admin/save}" th:object="${user}">-->
-
 
     <form th:action="@{/admin/save}" th:object="${user}" method="post">
 
@@ -45,30 +39,6 @@
 
         <input type="submit" value="Create" />
     </form>
-<!--
-
-    <p><select th:size="${roles.size()}" multiple name="select-role"
-               th:each="role : ${roles}">
-
-        <option th:value="${role.getName()}" th:utext="${role.getName()}"/>
-    </select></p>
--->
-
-<!--
-
-    <p><label>
-        <select th:size="${roles.size()}" multiple name="select-role"
-                   th:each="role : ${roles}">
-
-            <option th:value="${role.getName()}" th:utext="${role.getName()}"></option>
-        </select>
-    </label></p>
--->
-<!--
-
-    <input type="submit" value="Create" />
-</form>
--->
 
 </body>
 </html>
