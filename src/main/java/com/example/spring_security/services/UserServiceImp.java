@@ -24,16 +24,25 @@ public class UserServiceImp implements UserService {
         return userRepository.findByUsername(username);
     }
 
+    // ##### теперь возвращаем userdetales через существующего юзера ###############
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found!", username));
-        }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),
-                user.getPassword(), user.getRoles());
+    public UserDetails loadUserByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        user.getRoles().size();
+        return user;
     }
+
+//    @Override
+//    @Transactional
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        User user = findByUsername(username);
+//        if (user == null) {
+//            throw new UsernameNotFoundException(String.format("User '%s' not found!", username));
+//        }
+//        return new org.springframework.security.core.userdetails.User(user.getUsername(),
+//                user.getPassword(), user.getRoles());
+//    }
 
     @Override
     public List<User> findAll() {
