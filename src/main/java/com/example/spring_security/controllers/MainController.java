@@ -18,12 +18,12 @@ public class MainController {
 
     private UserService userService;
     private RoleService roleService;
-    private PasswordEncoder passwordEncoder;
+//    private PasswordEncoder passwordEncoder;
     @Autowired
-    public MainController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
+    public MainController(UserService userService, RoleService roleService/*, PasswordEncoder passwordEncoder*/) {
         this.userService = userService;
         this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
+//        this.passwordEncoder = passwordEncoder;
     }
 
 // ######## Общая страница #############
@@ -60,7 +60,7 @@ public class MainController {
 
     @PostMapping("/admin/save")
     public String createUser(@ModelAttribute("user") User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
 
         return "redirect:/admin";
@@ -86,7 +86,7 @@ public class MainController {
     @PatchMapping("/admin/{username}")
     public String update(@ModelAttribute("user") User user,
                          @PathVariable("username") String username) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.updateUser(username, user);
         return "redirect:/admin";
     }

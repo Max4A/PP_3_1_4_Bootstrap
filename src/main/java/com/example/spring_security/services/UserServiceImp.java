@@ -3,8 +3,10 @@ package com.example.spring_security.services;
 import com.example.spring_security.entities.User;
 import com.example.spring_security.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,10 +15,17 @@ import java.util.List;
 @Service
 public class UserServiceImp implements UserService {
     private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @Autowired
+    @Lazy
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -51,6 +60,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
@@ -62,11 +72,13 @@ public class UserServiceImp implements UserService {
     @Override
     public void updateUser(String username, User newUserData) {
         User user = userRepository.findByUsername(username);
-        user.setPassword(newUserData.getPassword());
+//        user.setPassword(newUserData.getPassword());
+        user.setPassword(passwordEncoder.encode(newUserData.getPassword()));
         user.setFirstname(newUserData.getFirstname());
         user.setLastname(newUserData.getLastname());
         user.setEmail(newUserData.getEmail());
         user.setRoles(newUserData.getRoles());
         userRepository.save(user);
     }
+
 }
