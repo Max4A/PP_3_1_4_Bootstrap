@@ -4,7 +4,6 @@ import com.example.spring_security.entities.User;
 import com.example.spring_security.services.RoleService;
 import com.example.spring_security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +17,10 @@ public class MainController {
 
     private UserService userService;
     private RoleService roleService;
-//    private PasswordEncoder passwordEncoder;
     @Autowired
-    public MainController(UserService userService, RoleService roleService/*, PasswordEncoder passwordEncoder*/) {
+    public MainController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
-//        this.passwordEncoder = passwordEncoder;
     }
 
 // ######## Общая страница #############
@@ -60,7 +57,6 @@ public class MainController {
 
     @PostMapping("/admin/save")
     public String createUser(@ModelAttribute("user") User user) {
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
 
         return "redirect:/admin";
@@ -86,7 +82,6 @@ public class MainController {
     @PatchMapping("/admin/{username}")
     public String update(@ModelAttribute("user") User user,
                          @PathVariable("username") String username) {
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.updateUser(username, user);
         return "redirect:/admin";
     }

@@ -4,6 +4,7 @@ import com.example.spring_security.entities.User;
 import com.example.spring_security.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +30,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    @Query("select distinct us from User us join fetch us.roles where us.username= :username")
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -42,18 +44,8 @@ public class UserServiceImp implements UserService {
         return user;
     }
 
-//    @Override
-//    @Transactional
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User user = findByUsername(username);
-//        if (user == null) {
-//            throw new UsernameNotFoundException(String.format("User '%s' not found!", username));
-//        }
-//        return new org.springframework.security.core.userdetails.User(user.getUsername(),
-//                user.getPassword(), user.getRoles());
-//    }
-
     @Override
+    @Query("select distinct us from User us left join fetch us.roles")
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -72,7 +64,6 @@ public class UserServiceImp implements UserService {
     @Override
     public void updateUser(String username, User newUserData) {
         User user = userRepository.findByUsername(username);
-//        user.setPassword(newUserData.getPassword());
         user.setPassword(passwordEncoder.encode(newUserData.getPassword()));
         user.setFirstname(newUserData.getFirstname());
         user.setLastname(newUserData.getLastname());

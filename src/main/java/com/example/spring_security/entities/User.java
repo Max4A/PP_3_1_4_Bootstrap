@@ -155,15 +155,5 @@ public class User implements UserDetails {
         return Objects.hash(username, password, firstname, lastname, email);
     }
 
-    //    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof User user)) return false;
-//        return getUsername().equals(user.getUsername()) && getPassword().equals(user.getPassword()) && Objects.equals(getFirstname(), user.getFirstname()) && Objects.equals(getLastname(), user.getLastname()) && Objects.equals(getEmail(), user.getEmail());
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(getUsername(), getPassword(), getFirstname(), getLastname(), getEmail());
-//    }
+
 }
