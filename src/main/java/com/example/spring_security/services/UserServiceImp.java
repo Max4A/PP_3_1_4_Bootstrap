@@ -30,7 +30,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    @Query("select distinct us from User us join fetch us.roles where us.username= :username")
+//    @Query("select distinct us from User us join fetch us.roles where us.username= :username")
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -45,7 +45,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    @Query("select distinct us from User us left join fetch us.roles")
+//    @Query("select distinct us from User us left join fetch us.roles")
     public List<User> findAll() {
         return userRepository.findAll();
     }
