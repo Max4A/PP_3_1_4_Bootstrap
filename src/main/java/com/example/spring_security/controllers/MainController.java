@@ -40,10 +40,18 @@ public class MainController {
     // ######## Страница админа - все юзеры #############
     @GetMapping("/admin")
     public String pageForAdmin(Principal principal, Model model) {  // все юзеры
+
+//        model.addAttribute("createUser", new User());
+//        model.addAttribute("allUsers", userService.findAll());
+//        model.addAttribute("allRoles", roleService.allRoles());
+//        model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
+//        return "admin";
+
         List<User> allUsers = userService.findAll();
         model.addAttribute("allUsers", allUsers);
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("user", user);
+        model.addAttribute("allRoles", roleService.allRoles()); // добавлен список всех ролей
         return "admin";
     }
 //  ############### new user ####################################
@@ -75,14 +83,14 @@ public class MainController {
     @GetMapping("/admin/{username}/edit")
     public String edit(Model model, @PathVariable("username") String username) {
         model.addAttribute("user", userService.findByUsername(username));
-        model.addAttribute("roles", roleService.allRoles());
+//        model.addAttribute("roles", roleService.allRoles());
         return "editUser";
     }
 
-    @PatchMapping("/admin/{username}")
+    @PatchMapping ("/admin/{username}")
     public String update(@ModelAttribute("user") User user,
                          @PathVariable("username") String username) {
         userService.updateUser(username, user);
-        return "redirect:/admin";
+        return "redirect:/admin/";
     }
 }
