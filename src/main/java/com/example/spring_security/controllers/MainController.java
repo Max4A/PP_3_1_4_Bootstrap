@@ -47,6 +47,7 @@ public class MainController {
 //        model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
 //        return "admin";
 
+        model.addAttribute("createUser", new User());
         List<User> allUsers = userService.findAll();
         model.addAttribute("allUsers", allUsers);
         User user = userService.findByUsername(principal.getName());
@@ -57,9 +58,10 @@ public class MainController {
 //  ############### new user ####################################
 
     @GetMapping("/admin/new")
-    public String newUser(Model model) {
-        model.addAttribute("user", new User());
+    public String newUser(Principal principal, Model model) {
+        model.addAttribute("newUser", new User());
         model.addAttribute("roles", roleService.allRoles());
+        model.addAttribute("user", userService.findByUsername(principal.getName()));
         return "addUser";
     }
 
@@ -83,7 +85,7 @@ public class MainController {
     @GetMapping("/admin/{username}/edit")
     public String edit(Model model, @PathVariable("username") String username) {
         model.addAttribute("user", userService.findByUsername(username));
-//        model.addAttribute("roles", roleService.allRoles());
+        model.addAttribute("roles", roleService.allRoles());
         return "editUser";
     }
 
