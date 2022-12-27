@@ -1,9 +1,11 @@
 package com.example.spring_security.controllers;
 
 import com.example.spring_security.entities.User;
+import com.example.spring_security.repositories.UserRepository;
 import com.example.spring_security.services.RoleService;
 import com.example.spring_security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.BeanDefinitionDsl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +19,14 @@ public class MainController {
 
     private UserService userService;
     private RoleService roleService;
+    private final UserRepository userRepository;
+
     @Autowired
-    public MainController(UserService userService, RoleService roleService) {
+    public MainController(UserService userService, RoleService roleService,
+                          UserRepository userRepository) {
         this.userService = userService;
         this.roleService = roleService;
+        this.userRepository = userRepository;
     }
 
 // ######## Общая страница #############
@@ -40,12 +46,6 @@ public class MainController {
     // ######## Страница админа - все юзеры #############
     @GetMapping("/admin")
     public String pageForAdmin(Principal principal, Model model) {  // все юзеры
-
-//        model.addAttribute("createUser", new User());
-//        model.addAttribute("allUsers", userService.findAll());
-//        model.addAttribute("allRoles", roleService.allRoles());
-//        model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
-//        return "admin";
 
         model.addAttribute("createUser", new User());
         List<User> allUsers = userService.findAll();
